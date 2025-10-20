@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     
     window = UIWindow(windowScene: windowScene)
-    let rootViewController = ViewController()
+    let measurementListViewModel = MeasurementListViewModel()
+    let rootViewController = MeasurementListViewController(viewModel: measurementListViewModel)
     let navigationController = UINavigationController(rootViewController: rootViewController)
     
     window?.rootViewController = navigationController
