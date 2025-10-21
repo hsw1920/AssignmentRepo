@@ -8,7 +8,7 @@
 import UIKit
 
 final class MeasurementDetailViewModel {
-  private let measurementEntry: MeasurementEntry
+  private(set) var measurementEntry: MeasurementEntry
   
   init(measurementEntry: MeasurementEntry) {
     self.measurementEntry = measurementEntry
