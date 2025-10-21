@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Status: String {
+enum Status: String, CaseIterable {
   case normal
   case attention
   case warning
