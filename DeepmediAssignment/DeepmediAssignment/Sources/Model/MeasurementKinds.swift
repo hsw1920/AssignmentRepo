@@ -19,7 +19,7 @@ struct SingleMeasurement: MeasurementValue {
   
   var status: Status {
     if measurementType == .fourth {
-      return value == 0.0 ? .positive : .negative
+      return value == 0.0 ? .negative : .positive
     }
     
     return ranges.first { range in
