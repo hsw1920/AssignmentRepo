@@ -37,6 +37,7 @@ final class MeasurementListViewController: UIViewController {
     configureUI()
     addConsraints()
     setupTableView()
+    bind()
   }
   
   private func addViews() {
@@ -84,6 +85,30 @@ final class MeasurementListViewController: UIViewController {
     measurementListTableView.delegate = self
     measurementListTableView.dataSource = self
   }
+  
+  private func bind() {
+    viewModel.filteredSectionItems
+      .observe(on: MainScheduler.asyncInstance)
+      .subscribe(
+        onNext: { [weak self] sections in
+          self?.sections = sections
+          self?.measurementListTableView.reloadData()
+        }
+      )
+      .disposed(by: disposeBag)
+    
+    viewModel.filterItems
+      .observe(on: MainScheduler.asyncInstance)
+      .subscribe(
+        onNext: { [weak self] items in
+          self?.filterView.configure(with: items)
+          self?.measurementListTableView.reloadData()
+        }
+      )
+      .disposed(by: disposeBag)
+  }
+}
+
 extension MeasurementListViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     return sections.count
