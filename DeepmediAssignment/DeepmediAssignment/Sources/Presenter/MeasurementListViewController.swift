@@ -40,13 +40,18 @@ final class MeasurementListViewController: UIViewController {
     bind()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    navigationController?.isNavigationBarHidden = true
+  }
+  
   private func addViews() {
     view.addSubview(measurementListTableView)
     view.addSubview(filterView)
   }
   
   private func configureUI() {
-    navigationController?.isNavigationBarHidden = true
     view.backgroundColor = .systemGray5
    
     measurementListTableView.backgroundColor = .systemGray5
@@ -148,6 +153,9 @@ extension MeasurementListViewController: UITableViewDelegate {
   // TODO: - Navigation Push
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let item = sections[indexPath.section].items[indexPath.row]
+    let measurementDetailViewModel = MeasurementDetailViewModel(measurementEntry: item)
+    let measurementDetailViewController = MeasurementDetailViewController(viewModel: measurementDetailViewModel)
+    navigationController?.pushViewController(measurementDetailViewController, animated: true)
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
