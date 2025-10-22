@@ -106,7 +106,7 @@ final class SingleMeasurementDetailCell: UITableViewCell {
     let statusMarkImage = UIImage(named: "\(item.status)Mark")
     statusMarkImageView.image = statusMarkImage
     
-    valueTitleLabel.text = "\(item.measurementType)"
+    valueTitleLabel.text = "\(item.measurementType.title)"
 
     if item.measurementType == .fourth {
       valueLabel.text = "\(item.value)"

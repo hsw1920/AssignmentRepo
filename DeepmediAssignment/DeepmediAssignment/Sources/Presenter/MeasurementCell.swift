@@ -105,7 +105,7 @@ final class MeasurementCell: UITableViewCell {
     let valueLabel = UILabel()
     let statusImageView = UIImageView()
     
-    titleLabel.text = "\(single.measurementType)"
+    titleLabel.text = single.measurementType.title
     titleLabel.font = .systemFont(ofSize: 14, weight: .semibold)
     titleLabel.textColor = .secondaryLabel
 
@@ -147,7 +147,7 @@ final class MeasurementCell: UITableViewCell {
     let slashLabel = UILabel()
     let statusImageView = UIImageView()
 
-    titleLabel.text = "\(pair.measurementType)"
+    titleLabel.text = pair.measurementType.title
     titleLabel.font = .systemFont(ofSize: 14, weight: .semibold)
     titleLabel.textColor = .secondaryLabel
     
