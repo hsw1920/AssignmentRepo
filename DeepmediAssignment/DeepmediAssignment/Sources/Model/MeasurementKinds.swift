@@ -32,6 +32,10 @@ struct PairMeasurement: MeasurementValue {
   let measurementType: MeasurementType
   let leftValue: Double
   let rightValue: Double
+  let leftMinValue: Double
+  let leftMaxValue: Double
+  let rightMinValue: Double
+  let rightMaxValue: Double
   let leftRanges: [ValueRange]
   let rightRanges: [ValueRange]
   

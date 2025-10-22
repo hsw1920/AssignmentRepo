@@ -49,6 +49,10 @@ final class MeasurementDataManager {
           measurementType: .firstSecond,
           leftValue: v1,
           rightValue: v2,
+          leftMinValue: 100, // 요구 사항 X 임의 지정
+          leftMaxValue: 150, // 요구 사항 X 임의 지정
+          rightMinValue: 60, // 요구 사항 X 임의 지정
+          rightMaxValue: 110, // 요구 사항 X 임의 지정
           leftRanges: [
             ValueRange(min: 100, max: 120, status: .normal),
             ValueRange(min: 120, max: 125, status: .attention),
