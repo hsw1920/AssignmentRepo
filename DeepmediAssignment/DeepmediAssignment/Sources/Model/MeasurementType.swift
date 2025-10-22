@@ -34,9 +34,3 @@ enum MeasurementType {
     }
   }
 }
-
-struct ValueRange {
-  let min: Double
-  let max: Double
-  let status: Status
-}

@@ -12,6 +12,13 @@ protocol MeasurementValue {
   var measurementType: MeasurementType { get }
 }
 
+struct ValueRange {
+  let min: Double
+  let max: Double
+  let status: Status
+}
+
+
 struct SingleMeasurement: MeasurementValue {
   let measurementType: MeasurementType
   let value: Double
