@@ -1,4 +1,8 @@
 # Deepmedi Assignment
+### 기간
+- `25.10.20.` ~ `25.10.22`
+
+<br>
 
 ### 개발 환경
 - Xcode: 16.3
@@ -7,7 +11,7 @@
 - Tech: UIKit, MVVM, RxSwift, RxCocoa, SnapKit
 - Simulator: iPhone 14
 
-<br><br>
+<br>
 
 ### 폴더링
 ```swift
@@ -43,6 +47,9 @@ Sources/
         └── MeasurementSectionHeaderView.swift
 ```
 
+<br><br>
+
+
 ##  주요 기능
 ###  측정 데이터 관리
 - 4가지 `TargetItem` 더미 데이터셋을 **확장 가능한 외부 데이터로 가정**
@@ -51,7 +58,7 @@ Sources/
   - `3번 데이터`
   - `4번 데이터`
 
-<br><br>
+<br>
 
 ### 목록 화면
 - 측정 데이터를 MeasurementDataManager로 날짜별로 정리한 SectionItems 반환하여 ViewController에 전달
@@ -59,7 +66,7 @@ Sources/
 - 실시간 업데이트: Rx 활용 이벤트 스트림 관리로 필터 변경 이벤트 발생 시 즉시 반영
   
 
-<br><br>
+<br>
 
 ### 상세 화면
 - `MeasurementValue` 프로토콜로 디스플레이할 데이터 확장성 고려(아래 구조체는 MeasurementValue를 채택)
@@ -67,7 +74,7 @@ Sources/
   - `SingleMeasurement -> SingleMeasurementDetailCell`: 단일 측정 데이터 표시 -> 개별 표시되는 3, 4번 데이터(요구 사항에 따라 3, 4번 데이터는 `MeasurementRangeView` 생략)
 - `MeasurementRangeView`: 측정값의 상태를 시각적으로 표시
 
-<br><br>
+<br>
 
 ### UI 요구사항
 ![alt text](gifs/image.png)
@@ -79,7 +86,7 @@ Sources/
 
 <br><br>
 
-### 스크린샷
+## 스크린샷
 
 | 리스트 UI | 결과 UI | 
 | :---------: | :-----------: |
