@@ -114,5 +114,22 @@ final class MeasurementRangeView: UIView {
   }
   
   private func configValueLabels() {
+    minValueLabel.text = "\(Int(totalMinValue))"
+    maxValueLabel.text = "\(Int(totalMaxValue))"
+    for (index, maxValueString) in valueRanges.map({ String(Int($0.max)) }).enumerated() {
+      let label = UILabel()
+      label.font = .systemFont(ofSize: 12, weight: .medium)
+      label.textColor = .secondaryLabel
+      label.text = maxValueString
+      
+      valueLabelViews.append(label)
+      containerView.addSubview(label)
+      
+      label.snp.makeConstraints {
+        $0.centerX.equalTo(rangeSegmentViews[index].snp.trailing)
+        $0.bottom.equalToSuperview()
+      }
+    }
+  }
   }
 }
