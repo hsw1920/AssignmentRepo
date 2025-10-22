@@ -35,17 +35,6 @@ enum MeasurementType {
   }
 }
 
-struct MeasurementConfig {
-  let name: String
-  let ranges: [ValueRange]
-  
-  func getStatus(for value: Double) -> Status {
-    return ranges.first { range in
-      value >= range.min && value < range.max
-    }?.status ?? .danger
-  }
-}
-
 struct ValueRange {
   let min: Double
   let max: Double

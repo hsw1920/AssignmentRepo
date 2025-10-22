@@ -18,12 +18,7 @@ final class MeasurementListViewModel {
   private var disposeBag = DisposeBag()
   
   init() {
-    let sectionItems = manager.process(
-      first: dummy1,
-      second: dummy2,
-      third: dummy3,
-      fourth: dummy4
-    )
+    let sectionItems = manager.process(with: [dummy1, dummy2, dummy3, dummy4])
     
     originSectionItems.accept(sectionItems)
     
