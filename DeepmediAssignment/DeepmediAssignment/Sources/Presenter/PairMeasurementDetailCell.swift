@@ -16,10 +16,10 @@ final class PairMeasurementDetailCell: UITableViewCell {
   private let statusImageView = UIImageView()
   private let leftValueTitleLabel = UILabel()
   private let leftValueLabel = UILabel()
-  private let leftRangesContainerView = UIView() // 커스텀
+  private let leftRangesContainerView = MeasurementRangeView()
   private let rightValueTitleLabel = UILabel()
   private let rightValueLabel = UILabel()
-  private let rightRangesContainerView = UIView() // 커스텀
+  private let rightRangesContainerView = MeasurementRangeView()
   private let statusDescriptionContainerView = UIView()
   private let statusDescriptionLabel = UILabel()
   
@@ -69,10 +69,6 @@ final class PairMeasurementDetailCell: UITableViewCell {
     statusDescriptionLabel.textAlignment = .center
     statusDescriptionContainerView.backgroundColor = .systemCyan
     statusDescriptionContainerView.layer.cornerRadius = 8
-    
-    /// 임시 더미 레이아웃 확인용
-    leftRangesContainerView.backgroundColor = .systemMint
-    rightRangesContainerView.backgroundColor = .systemMint
   }
   
   private func addConsraints() {
@@ -110,7 +106,6 @@ final class PairMeasurementDetailCell: UITableViewCell {
       $0.height.equalTo(100)
     }
     
-    
     rightValueTitleLabel.snp.makeConstraints {
       $0.top.equalTo(leftRangesContainerView.snp.bottom).offset(36)
       $0.leading.equalToSuperview().inset(12)
@@ -147,10 +142,12 @@ final class PairMeasurementDetailCell: UITableViewCell {
     
     leftValueTitleLabel.text = "\(item.measurementType.leftTitle)"
     leftValueLabel.text = "\(Int(item.leftValue))"
+    leftRangesContainerView.configure(value: item.leftValue, min: item.leftMinValue, max: item.leftMaxValue ,ranges: item.leftRanges)
     
     rightValueTitleLabel.text = "\(item.measurementType.rightTitle)"
     rightValueLabel.text = "\(Int(item.rightValue))"
-
+    rightRangesContainerView.configure(value: item.rightValue, min: item.rightMinValue, max: item.rightMaxValue ,ranges: item.rightRanges)
+    
     statusDescriptionLabel.text = switch item.status {
     case .normal: "정상 범위 입니다."
     case .attention: "관심 범위 입니다."

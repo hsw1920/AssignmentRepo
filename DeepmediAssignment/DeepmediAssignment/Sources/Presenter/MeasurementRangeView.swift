@@ -32,6 +32,12 @@ final class MeasurementRangeView: UIView {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
+ 
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    updatePinPosition()
+  }
   
   private func setupUI() {
     minValueLabel.font = .systemFont(ofSize: 12, weight: .medium)
@@ -131,5 +137,18 @@ final class MeasurementRangeView: UIView {
       }
     }
   }
+  
+  private func updatePinPosition() {
+    let totalRangeWidth = totalMaxValue - totalMinValue
+    
+    guard totalRangeWidth > 0, containerView.bounds.width > 0 else { return }
+    
+    let percent = (currentValue - totalMinValue) / totalRangeWidth
+    let clampedPercent = max(0.0, min(1.0, percent))
+    let newOffset = (containerView.bounds.width - minValueLabel.bounds.width / 2 - maxValueLabel.bounds.width / 2) * clampedPercent
+    
+    currentPinView.snp.updateConstraints {
+      $0.centerX.equalTo(rangeStackView.snp.leading).offset(newOffset)
+    }
   }
 }
