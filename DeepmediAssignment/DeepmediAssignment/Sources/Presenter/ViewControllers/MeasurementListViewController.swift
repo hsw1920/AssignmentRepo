@@ -150,7 +150,6 @@ extension MeasurementListViewController: UITableViewDelegate {
     return header
   }
   
-  // TODO: - Navigation Push
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let item = sections[indexPath.section].items[indexPath.row]
     let measurementDetailViewModel = MeasurementDetailViewModel(measurementEntry: item)

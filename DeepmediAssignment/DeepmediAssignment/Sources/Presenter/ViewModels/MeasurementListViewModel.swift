@@ -12,15 +12,25 @@ final class MeasurementListViewModel {
   private let manager = MeasurementDataManager()
   private let originSectionItems = BehaviorRelay<[DateSectionItem]>(value: [])
   
+  private var disposeBag = DisposeBag()
+  
+  // MARK: - Output Properties
   let filteredSectionItems = BehaviorRelay<[DateSectionItem]>(value: [])
   let filterItems = BehaviorRelay<[MeasureFilterItem]>(value: [])
   
-  private var disposeBag = DisposeBag()
-  
   init() {
-    let sectionItems = manager.process(with: [dummy1, dummy2, dummy3, dummy4])
-    
-    originSectionItems.accept(sectionItems)
+    bind()
+    fetchData()
+  }
+  
+  private func bind() {
+    originSectionItems
+      .map { [weak self] sections in
+        guard let self else { return [] }
+        return generateFilterItems(from: sections)
+      }
+      .bind(to: filterItems)
+      .disposed(by: disposeBag)
     
     Observable
       .combineLatest(originSectionItems, filterItems)
@@ -30,16 +40,14 @@ final class MeasurementListViewModel {
       }
       .bind(to: filteredSectionItems)
       .disposed(by: disposeBag)
-    
-    originSectionItems
-      .map { [weak self] sections in
-        guard let self else { return [] }
-        return generateFilterItems(from: sections)
-      }
-      .bind(to: filterItems)
-      .disposed(by: disposeBag)
   }
   
+  private func fetchData() {
+    let sectionItems = manager.process(with: [dummy1, dummy2, dummy3, dummy4])
+    originSectionItems.accept(sectionItems)
+  }
+  
+  // MARK: - Input Method
   func toggleFilter(_ item: MeasureFilterItem) {
     var filterItems = filterItems.value
     if let index = filterItems.firstIndex(where: { $0.status == item.status }) {
@@ -47,25 +55,11 @@ final class MeasurementListViewModel {
     }
     self.filterItems.accept(filterItems)
   }
-
-  private func filterSections(_ sections: [DateSectionItem], by filters: [MeasureFilterItem]) -> [DateSectionItem] {
-    let selectedFilters = Set(filters.filter { $0.isSelected }.map { $0.status })
-    
-    if selectedFilters.isEmpty { return sections }
-    
-    return sections.compactMap { section in
-      let filteredItems = section.items.compactMap { entry -> MeasurementEntry? in
-        let isContained = entry.measurements.contains { selectedFilters.contains($0.status) }
-        return isContained ? entry : nil
-      }
-      
-      return filteredItems.isEmpty ? nil : DateSectionItem(measureTime: section.measureTime, items: filteredItems)
-    }
-  }
   
   private func generateFilterItems(from sections: [DateSectionItem]) -> [MeasureFilterItem] {
     let selectedFilters = Set(filterItems.value.filter { $0.isSelected }.map { $0.status })
-    let statusCounts = sections.flatMap { $0.items }
+    let statusCounts = sections
+      .flatMap { $0.items }
       .flatMap { $0.measurements }
       .map { $0.status }
       .reduce(into: [Status: Int]()) { counts, status in
@@ -78,6 +72,21 @@ final class MeasurementListViewModel {
         count: statusCounts[status] ?? 0,
         isSelected: selectedFilters.contains(status)
       )
+    }
+  }
+  
+  private func filterSections(_ sections: [DateSectionItem], by filters: [MeasureFilterItem]) -> [DateSectionItem] {
+    let selectedFilters = Set(filters.filter { $0.isSelected }.map { $0.status })
+    
+    if selectedFilters.isEmpty { return sections }
+    
+    return sections.compactMap { section in
+      let filteredItems = section.items.compactMap { entry -> MeasurementEntry? in
+        let isContained = entry.measurements.contains { selectedFilters.contains($0.status) }
+        return isContained ? entry : nil
+      }
+      
+      return filteredItems.isEmpty ? nil : DateSectionItem(measureTime: section.measureTime, items: filteredItems)
     }
   }
 }
