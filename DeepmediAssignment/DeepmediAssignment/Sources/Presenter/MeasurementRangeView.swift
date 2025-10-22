@@ -94,6 +94,23 @@ final class MeasurementRangeView: UIView {
   }
   
   private func configSegments() {
+    guard let lastRange = valueRanges.last else { return }
+    
+    let totalRangeWidth = totalMaxValue - totalMinValue
+    var allSegments: [ValueRange] = valueRanges
+    allSegments.append(ValueRange(min: lastRange.max, max: totalMaxValue, status: .danger))
+    
+    for segment in allSegments {
+      let segmentView = UIView()
+      segmentView.backgroundColor = segment.status.color
+      let segmentWidth = segment.max - segment.min
+      let widthPercentage = segmentWidth / totalRangeWidth
+      rangeSegmentViews.append(segmentView)
+      rangeStackView.addArrangedSubview(segmentView)
+      segmentView.snp.makeConstraints {
+        $0.width.equalTo(rangeStackView.snp.width).multipliedBy(widthPercentage)
+      }
+    }
   }
   
   private func configValueLabels() {
