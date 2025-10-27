@@ -109,14 +109,14 @@ extension MeasurementDataManager {
       rightMinValue: 60,
       rightMaxValue: 110,
       leftRanges: [
-        ValueRange(min: 100, max: 120, status: .normal),
-        ValueRange(min: 120, max: 125, status: .attention),
-        ValueRange(min: 126, max: 135, status: .warning),
+        ValueRange(min: 100, max: 121, status: .normal),
+        ValueRange(min: 121, max: 126, status: .attention),
+        ValueRange(min: 126, max: 136, status: .warning),
       ],
       rightRanges: [
-        ValueRange(min: 60, max: 75, status: .normal),
-        ValueRange(min: 75, max: 90, status: .attention),
-        ValueRange(min: 91, max: 100, status: .warning),
+        ValueRange(min: 60, max: 76, status: .normal),
+        ValueRange(min: 75, max: 91, status: .attention),
+        ValueRange(min: 91, max: 101, status: .warning),
       ]
     )
   }
@@ -126,8 +126,8 @@ extension MeasurementDataManager {
       measurementType: .third,
       value: value,
       ranges: [
-        ValueRange(min: 20, max: 35, status: .normal),
-        ValueRange(min: 36, max: 45, status: .attention),
+        ValueRange(min: 20, max: 36, status: .normal),
+        ValueRange(min: 36, max: 46, status: .attention),
         ValueRange(min: 46, max: 50, status: .warning),
       ]
     )
