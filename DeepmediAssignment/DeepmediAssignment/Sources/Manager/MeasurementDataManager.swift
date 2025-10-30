@@ -115,7 +115,7 @@ extension MeasurementDataManager {
       ],
       rightRanges: [
         ValueRange(min: 60, max: 76, status: .normal),
-        ValueRange(min: 75, max: 91, status: .attention),
+        ValueRange(min: 76, max: 91, status: .attention),
         ValueRange(min: 91, max: 101, status: .warning),
       ]
     )
